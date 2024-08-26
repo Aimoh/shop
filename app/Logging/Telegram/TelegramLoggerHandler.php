@@ -21,7 +21,7 @@ final class TelegramLoggerHandler extends AbstractProcessingHandler
 
         parent::__construct($level);
 
-        $this->chat_id = $config['chat_id'];
+        $this->chatId = (int) $config['chat_id'];
         $this->token = $config['token'];
     }
 
@@ -29,7 +29,7 @@ final class TelegramLoggerHandler extends AbstractProcessingHandler
     {
         TelegramBotApi::sendMessage(
             $this->token,
-            $this->chat_id,
+            $this->chatId,
             $record['formatted']
         );
     }
