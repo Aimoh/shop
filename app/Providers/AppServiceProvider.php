@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
+use App\Events\NewUser;
+use App\Listeners\SendEmailNewUserListener;
 use Carbon\CarbonInterval;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\Kernel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
@@ -56,5 +59,10 @@ class AppServiceProvider extends ServiceProvider
                 }
             );
         }
+
+        Event::listen(
+            NewUser::class,
+            SendEmailNewUserListener::class,
+        );
     }
 }
